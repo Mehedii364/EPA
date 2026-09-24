@@ -1,0 +1,6 @@
+{
+  "name": "Exam Pattern Analyzer",
+  "description": "Analyze, understand, and practice previous years' exam patterns, questions, repetitions, and historical dates for students in Bangladesh. Developed by Mehedi364.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

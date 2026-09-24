@@ -1,0 +1,170 @@
+<?php
+/**
+ * Exam Pattern Analyzer (EPA) - Web Application Main Entrypoint
+ * Developed by Mehedi364
+ */
+
+declare(strict_types=1);
+
+// If not yet installed and config doesn't exist, route to install.php
+if (!file_exists(__DIR__ . '/install.lock') && !file_exists(__DIR__ . '/config/config.php')) {
+    header('Location: install.php');
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Exam Pattern Analyzer (EPA) - Analyze. Understand. Practice.</title>
+  <meta name="description" content="Exam Pattern Analyzer for students in Bangladesh. Analyze previous years questions, detect repeated questions, extract historical dates, practice verified 1-mark questions. Developed by Mehedi364.">
+  <meta name="theme-color" content="#1B2A4A">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+  <link rel="stylesheet" href="assets/css/neumorphic.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Desktop Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <img src="assets/icons/icon-192.png" alt="EPA Logo" class="brand-logo">
+        <div>
+          <div class="brand-title">EPA Analyzer</div>
+          <div class="brand-subtitle">Analyze. Understand. Practice.</div>
+          <div class="brand-developer">Developed by Mehedi364</div>
+        </div>
+      </div>
+
+      <ul class="nav-list">
+        <li class="nav-item active" data-route="dashboard">
+          <span class="icon">📊</span>
+          <span>ড্যাশবোর্ড (Dashboard)</span>
+        </li>
+        <li class="nav-item" data-route="papers">
+          <span class="icon">📄</span>
+          <span>প্রশ্নপত্র ও আপলোড (Papers)</span>
+        </li>
+        <li class="nav-item" data-route="questions">
+          <span class="icon">🗄️</span>
+          <span>প্রশ্ন ব্যাংক (Question Bank)</span>
+        </li>
+        <li class="nav-item" data-route="pattern">
+          <span class="icon">📈</span>
+          <span>প্যাটার্ন বিশ্লেষণ (Pattern)</span>
+        </li>
+        <li class="nav-item" data-route="repeated">
+          <span class="icon">🔄</span>
+          <span>পুনরাবৃত্ত প্রশ্ন (Repeats)</span>
+        </li>
+        <li class="nav-item" data-route="historical">
+          <span class="icon">⏳</span>
+          <span>ঐতিহাসিক সাল (History)</span>
+        </li>
+        <li class="nav-item" data-route="practice">
+          <span class="icon">✍️</span>
+          <span>অনুশীলন মোড (Practice)</span>
+        </li>
+        <li class="nav-item" data-route="ask_ai">
+          <span class="icon">✨</span>
+          <span>আস্ক এআই (Ask AI)</span>
+        </li>
+        <li class="nav-item" data-route="reports">
+          <span class="icon">📋</span>
+          <span>রিপোর্ট ও এক্সপোর্ট (Reports)</span>
+        </li>
+        <li class="nav-item" data-route="admin">
+          <span class="icon">⚙️</span>
+          <span>সেটিংস ও অ্যাডমিন (Settings)</span>
+        </li>
+      </ul>
+
+      <div style="font-size: 0.72rem; color: var(--text-muted); text-align: center; padding-top: 14px; border-top: 1px solid var(--border-subtle);">
+        EPA v1.0 Production Ready<br>
+        &copy; Mehedi364
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <button class="neuro-btn neuro-btn-sm mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation">
+            ☰
+          </button>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-weight: 800; font-size: 1.1rem; color: var(--accent);">Exam Pattern Analyzer</span>
+            <span class="badge badge-verified" style="font-size: 0.68rem;">Official</span>
+            <span id="connection-status-badge" class="badge badge-verified" style="font-size: 0.68rem;">Online</span>
+          </div>
+        </div>
+
+        <div class="top-bar-right">
+          <button class="neuro-btn neuro-btn-sm" id="lang-toggle-btn" title="Toggle Language">
+            English
+          </button>
+          <button class="neuro-btn neuro-btn-sm" id="theme-toggle-btn" title="Toggle Dark/Light Mode">
+            🌙
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic Content Body -->
+      <section class="content-body" id="main-content-body">
+        <!-- Rendered by EPAApp.navigate() -->
+      </section>
+    </main>
+  </div>
+
+  <!-- Mobile Bottom Navigation Bar (48dp+ touch target standard) -->
+  <nav class="mobile-bottom-nav">
+    <button class="mobile-nav-btn active" data-route="dashboard">
+      <span class="icon">📊</span>
+      <span>হোম</span>
+    </button>
+    <button class="mobile-nav-btn" data-route="papers">
+      <span class="icon">📄</span>
+      <span>আপলোড</span>
+    </button>
+    <button class="mobile-nav-btn" data-route="repeated">
+      <span class="icon">🔄</span>
+      <span>রিপিট</span>
+    </button>
+    <button class="mobile-nav-btn" data-route="practice">
+      <span class="icon">✍️</span>
+      <span>অনুশীলন</span>
+    </button>
+    <button class="mobile-nav-btn" data-route="ask_ai">
+      <span class="icon">✨</span>
+      <span>এআই</span>
+    </button>
+  </nav>
+
+  <!-- Universal Modal -->
+  <div class="modal-overlay" id="app-modal">
+    <div class="modal-box neuro-flat" id="modal-content">
+      <!-- Injected dynamically -->
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/charts.js"></script>
+  <script src="assets/js/ocr-engine.js"></script>
+  <script src="assets/js/analysis-engine.js"></script>
+  <script src="assets/js/practice-engine.js"></script>
+  <script src="assets/js/export.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => {
+          console.warn('SW registration skipped', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
